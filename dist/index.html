@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="theme-color" content="#ffb400">
+  <title>Tusky: The Task Manager</title>
+  <meta name="description" content="🍦 Tusky: The Task Manager">
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      font:400 12px system-ui;
+    }
+
+    .button {
+      background-color: white;
+      color: black;
+      border: 2px solid #555555;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s;
+      /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #555555;
+      color: white;
+    }
+
+
+    header>.container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      width: 100%;
+      overflow: auto;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-row-gap: 10px;
+      grid-column-gap: 10px;
+      grid-template-columns: auto auto auto auto;
+    }
+
+    .app-head {
+      grid-template-columns: auto auto;
+      width:100%;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .grid-container {
+        grid-template-columns: auto;
+      }
+      .container{
+        justify-content: space-around;
+      }
+    }
+
+    .flex-wrapper {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .align-right {
+      flex-direction: row-reverse;
+    }
+
+    .align-center {
+      margin: auto !important;
+    }
+
+    .avatar {
+      margin: 5px;
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  </style>
+  <title>
+    Tusky Task Manager
+  </title>
+
+  <meta name="description" content="Tusky Task Manager">
+
+</head>
+
+<body>
+
+  <div id="app">
+    <nav-bar></nav-bar>
+    <main>
+      <div class="container">
+          <div class="grid-container app-head">
+              <div class=" flex-wrapper">
+                <h1 style="margin-inline-start: 10px;">Tusky Task Board</h1>
+              </div>
+              <div class="flex-wrapper align-right">
+                <a href="" id="addTask" style="background: lightgrey"><img src="https://cdn3.iconfinder.com/data/icons/e-commerce-simple-ui-elements/100/TWalsh__plus1-512.png"
+                    alt="add" class="avatar" />
+                </a>
+                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+              </div>
+      
+            </div>
+      </div>
+     
+      <div class="container main">
+        <div class="grid-container" id="task-cards">
+          <task-card title="In Progress" id="inprogress">
+          </task-card>
+          <task-card title="On Hold" id="onhold">
+          </task-card>
+          <task-card title="Completed" id="completed">
+          </task-card>
+          <task-card title="Assigned" id="assigned">
+          </task-card>
+        </div>
+      </div>
+    </main>
+
+  </div>
+<script type="text/javascript" src="app.bundle.js"></script></body>
+
+
+</html>
