@@ -1,3 +1,5 @@
+![Tusky Image](https://raw.githubusercontent.com/shivamsngh/tusky/master/Tusky.png)
+
 # Tusky Task Manager
 
 This project was started as an assessment.
