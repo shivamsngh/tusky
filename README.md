@@ -56,13 +56,19 @@ NOTE: Directly opening index.html in browser might give a "CORS" or Cross origin
 ## Git
 Git head not set
 
+## Build
+`
+npm run build
+`
+
+## Run
+`
+npm start
+`
+
 ## Running unit tests
 
-Unit Tests are written using Karma and Jasmine. Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-End-To-End test is writen using protractor. Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Unit Tests are written using Karma and Jasmine. Run `npn run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## My Profile
 You can find me on https//shivamsngh.github.io
