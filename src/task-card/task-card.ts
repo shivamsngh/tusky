@@ -19,7 +19,7 @@ _taskPanelTemplate.innerHTML = `
   .card:hover {
     /*box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);*/
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    margin-bottom: 54px;
+    // margin-bottom: 54px;
   }
   .centered {
     position: absolute;
@@ -37,6 +37,7 @@ _taskPanelTemplate.innerHTML = `
   .image {
     max-height: 200px;
     max-width:300px;
+    height:200px;
     opacity: .7;
     overflow: hidden;
     transition: all .2s ease-in-out;

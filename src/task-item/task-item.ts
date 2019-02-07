@@ -241,10 +241,11 @@ export class TaskItem extends HTMLElement {
 
   connectedCallback() {
     console.log("connected")
-    // this.draggable = true;
-    if (this.root.querySelector('#deleteTask'))
+    if (this.root.querySelector('#deleteTask')) {
+      console.log("del ttch", )
       this.root.querySelector('#deleteTask').addEventListener('click', (ev) => this.deleteTask(ev));
 
+    }
     this.addEventListener('dragstart', (ev) => this.dragstartHandler(ev));
     this.addEventListener('dragend', (ev) => this.dragendHandler(ev));
   }
@@ -293,6 +294,8 @@ export class TaskItem extends HTMLElement {
         console.log("root", this.root.lastElementChild);
         this.root.appendChild(_itemTemplate.content.cloneNode(true));
         this.draggable = true;
+      this.root.querySelector('#deleteTask').addEventListener('click', (ev) => this.deleteTask(ev));
+
         this.root.querySelector('#switchView').addEventListener('click', (ev) => {
           ev.preventDefault();
           this.switchItemView('edit');
@@ -316,7 +319,6 @@ export class TaskItem extends HTMLElement {
    * @param ev
    */
   dragstartHandler(ev: any) {
-    console.log("dragStart; task val", this.task);
     // Add the target element's id to the data transfer object
     const sourceId = (<ShadowRoot>this.offsetParent.parentNode).host.id
     ev.dataTransfer.setData("text/plain", JSON.stringify({ ... { sourceId }, ...this.task }));
@@ -343,7 +345,6 @@ export class TaskItem extends HTMLElement {
     commentSpan.textContent = this.task.comments.length.toString();
     const attachmentSpan = this.root.querySelector('#attachments').nextSibling;
     attachmentSpan.textContent = this.task.attachments.length.toString();
-    console.log("message", this.message)
     this.root.querySelector('p').textContent = this.message;
     this.root.querySelector('header h3').textContent = this.priority;
   }
@@ -359,11 +360,9 @@ export class TaskItem extends HTMLElement {
    * Add task from edit view to show view
    */
   addTask() {
-    console.log(this.root.getElementById('#msgInput'))
     const msg = (<HTMLTextAreaElement>this.root.querySelector('#msgInput')).value;
     const pty = (<HTMLSelectElement>this.root.querySelector('#ptyInput')).value;
     this.switchItemView('show');
-    console.log("msg pty", msg, pty)
     this.message = msg;
     this.priority = pty;
   }
