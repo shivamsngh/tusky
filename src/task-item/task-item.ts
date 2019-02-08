@@ -5,13 +5,14 @@ _itemTemplate.innerHTML = `
 <style>
 :host{
   display:block;
-  border:1px solid black;
-  margin:5px;
+  margin-top:10px;
+  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
 .button {
   background-color: white;
   color: black;
-  border: 0px none #555555;
+  border: 1px none #555555;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -68,15 +69,16 @@ _itemTemplate.innerHTML = `
     <p>message</p>
   </main>
     <footer class="grid-container">
-    <div>
-    <button class="button grid-item" id="comments">&#x1f4ac;</button>
+    <div style="display:flex;justify-content: center;">
+    <button class="button grid-item" id="comments"><span>&#x1f4ac;</span></button>
     <span></span>
     </div>
-    <div>
-    <button class="button grid-item" id="attachments">&#128206;</button>
+    <div style="display:flex;justify-content: center;">
+    <button class="button grid-item" id="attachments"><span>&#128206;</span></button>
     <span></span>
     </div>
-    <button id="deleteTask" class="button grid-item">&#x2715;</button>
+    <div style="display:flex;justify-content: center;">
+    <button style="border-radius:50%;padding:1px 7px 2px;border: 1px solid lightcoral;color: white;background:lightcoral" id="deleteTask" class="button grid-item"><span>&#x2715;</span></button>
     </div>
   </footer>
 </div>`;
@@ -86,8 +88,9 @@ _editTemplate.innerHTML = `
 <style>
 :host{
   display:block;
-  border:1px solid black;
-  margin:5px;
+  margin-top:10px;
+  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
 .button {
   background-color: white;
@@ -242,7 +245,7 @@ export class TaskItem extends HTMLElement {
   connectedCallback() {
     console.log("connected")
     if (this.root.querySelector('#deleteTask')) {
-      console.log("del ttch", )
+      console.log("del ttch")
       this.root.querySelector('#deleteTask').addEventListener('click', (ev) => this.deleteTask(ev));
 
     }
@@ -290,11 +293,17 @@ export class TaskItem extends HTMLElement {
 
         break;
       case 'show':
+        const msg = (<HTMLTextAreaElement>this.root.querySelector('#msgInput')).value;
+        const pty = (<HTMLSelectElement>this.root.querySelector('#ptyInput')).value;
+        if (!msg && !pty) {
+          this.showError('Please enter message and priority')
+          break;
+        }
         this.removeAllViewsFromRoot();
         console.log("root", this.root.lastElementChild);
         this.root.appendChild(_itemTemplate.content.cloneNode(true));
         this.draggable = true;
-      this.root.querySelector('#deleteTask').addEventListener('click', (ev) => this.deleteTask(ev));
+        this.root.querySelector('#deleteTask').addEventListener('click', (ev) => this.deleteTask(ev));
 
         this.root.querySelector('#switchView').addEventListener('click', (ev) => {
           ev.preventDefault();
@@ -341,14 +350,34 @@ export class TaskItem extends HTMLElement {
    * on attribute change
    */
   render(): void {
+    const msgEl = this.root.querySelector('p');
+    const ptyEl = (<HTMLElement>this.root.querySelector('header h3'));
     const commentSpan = this.root.querySelector('#comments').nextSibling;
     commentSpan.textContent = this.task.comments.length.toString();
     const attachmentSpan = this.root.querySelector('#attachments').nextSibling;
     attachmentSpan.textContent = this.task.attachments.length.toString();
-    this.root.querySelector('p').textContent = this.message;
-    this.root.querySelector('header h3').textContent = this.priority;
+    this.setPriorityBackground(ptyEl, this.priority);
+    msgEl.textContent = this.message;
+    ptyEl.textContent = this.priority;
   }
 
+
+  setPriorityBackground(el: HTMLElement, priority: string) {
+    el.style.color = 'white';
+    switch (priority) {
+      case 'High Priority':
+        el.style.background = 'crimson';
+        break;
+      case 'Medium Priority':
+        el.style.background = 'mediumturquoise';
+        break;
+      case 'Low Priority':
+        el.style.background = 'khaki';
+        break;
+
+
+    }
+  }
   /**
    * Delete current task element
    */
@@ -362,9 +391,26 @@ export class TaskItem extends HTMLElement {
   addTask() {
     const msg = (<HTMLTextAreaElement>this.root.querySelector('#msgInput')).value;
     const pty = (<HTMLSelectElement>this.root.querySelector('#ptyInput')).value;
-    this.switchItemView('show');
-    this.message = msg;
-    this.priority = pty;
+
+    if (msg && pty) {
+      this.switchItemView('show');
+      this.message = msg;
+      this.priority = pty;
+    }
+    else {
+      this.showError('Please enter message and priority')
+    }
+
+  }
+
+  /**
+   * Shows error on screen if validation fails
+   */
+
+  showError(errMsg: string) {
+    const errToast = document.createElement('error-toast');
+    errToast.setAttribute('message', errMsg);
+    this.root.appendChild(errToast);
   }
 
 }

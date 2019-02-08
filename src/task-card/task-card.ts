@@ -1,5 +1,4 @@
 import { Task } from "../models/task";
-import { TaskItem } from "../task-item/task-item";
 
 const _taskPanelTemplate = document.createElement('template');
 _taskPanelTemplate.innerHTML = `
@@ -164,7 +163,8 @@ export class TaskCard extends HTMLElement {
     connectedCallback() {
         console.log('Custom task card element added to page.');
         this.addEventListener('drop', (ev) => this.handleDrop(ev));
-        this.addEventListener('dragover', (ev) => this.allowDrop(ev))
+        this.addEventListener('dragover', (ev) => this.allowDrop(ev));
+        this.addEventListener('dragleave', (ev) => this.handleDragLeave(ev))
     }
 
     /**
@@ -206,6 +206,9 @@ export class TaskCard extends HTMLElement {
      */
     handleDrop(ev: any) {
         ev.preventDefault();
+        const dumDiv = this.root.querySelector('#dum-div');
+        if (dumDiv)
+            this.root.querySelector('#dum-div').remove();
         const { sourceId, ...task } = JSON.parse(ev.dataTransfer.getData("text"));
         console.log("id received in drop", sourceId);
         console.log("task received in drop", task);
@@ -220,6 +223,26 @@ export class TaskCard extends HTMLElement {
     allowDrop(ev: Event) {
         console.log("Dropping hover")
         ev.preventDefault();
+        this.style.boxShadow = '5px';
+
+        // Dummy div
+        const dumDiv = this.root.querySelector('#dum-div');
+        if (!dumDiv) {
+            const dumDiv = document.createElement('div');
+            dumDiv.id = 'dum-div';
+            dumDiv.style.border = '2px dashed black';
+            dumDiv.style.width = '300px';
+            dumDiv.style.height = '200px';
+            this.root.querySelector('.list').insertBefore(dumDiv, this.root.querySelector('.list').childNodes[0])
+        }
+    }
+
+    handleDragLeave(ev: Event) {
+        ev.preventDefault();
+        console.log("dragleft");
+        const dumDiv = this.root.querySelector('#dum-div');
+        if (dumDiv)
+            this.root.querySelector('#dum-div').remove();
     }
 
     render() {
