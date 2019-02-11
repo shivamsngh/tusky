@@ -10,6 +10,7 @@ _taskPanelTemplate.innerHTML = `
     position: relative;
     margin-bottom: 50px;
     transition: all .2s ease-in-out;
+    max-width:300px;
   }
   .card-footer{
       text-align:center;
@@ -35,7 +36,7 @@ _taskPanelTemplate.innerHTML = `
 
   .image {
     max-height: 200px;
-    max-width:300px;
+    max-width:100%;
     height:200px;
     opacity: .7;
     overflow: hidden;
@@ -45,9 +46,15 @@ _taskPanelTemplate.innerHTML = `
   }
   .image:hover,
   .card:hover .image {
-    height: 200px;
     opacity: 1;
   }
+
+  @media only screen and (max-width: 600px) {
+    .card {
+      max-width:350px;
+    }
+  }
+
 .text {
   background: #FFF;
   padding: 20px;

@@ -12,5 +12,6 @@ export declare class TaskCard extends HTMLElement {
     createTask(opts?: Task): void;
     handleDrop(ev: any): void;
     allowDrop(ev: Event): void;
+    handleDragLeave(ev: Event): void;
     render(): void;
 }

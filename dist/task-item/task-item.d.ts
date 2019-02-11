@@ -16,6 +16,8 @@ export declare class TaskItem extends HTMLElement {
     dragstartHandler(ev: any): void;
     dragendHandler(ev: any): void;
     render(): void;
+    setPriorityBackground(el: HTMLElement, priority: string): void;
     deleteTask(ev: Event): void;
     addTask(): void;
+    showError(errMsg: string): void;
 }

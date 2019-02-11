@@ -5,7 +5,7 @@ _itemTemplate.innerHTML = `
 <style>
 :host{
   display:block;
-  margin-top:10px;
+  margin:7px;
   -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
@@ -88,7 +88,7 @@ _editTemplate.innerHTML = `
 <style>
 :host{
   display:block;
-  margin-top:10px;
+  margin:7px;
   -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
@@ -300,11 +300,11 @@ export class TaskItem extends HTMLElement {
           break;
         }
         this.removeAllViewsFromRoot();
-        console.log("root", this.root.lastElementChild);
         this.root.appendChild(_itemTemplate.content.cloneNode(true));
         this.draggable = true;
+        this.message = msg;
+        this.priority = pty;
         this.root.querySelector('#deleteTask').addEventListener('click', (ev) => this.deleteTask(ev));
-
         this.root.querySelector('#switchView').addEventListener('click', (ev) => {
           ev.preventDefault();
           this.switchItemView('edit');
@@ -374,8 +374,6 @@ export class TaskItem extends HTMLElement {
       case 'Low Priority':
         el.style.background = 'khaki';
         break;
-
-
     }
   }
   /**
