@@ -1,175 +1,6 @@
 import { Task } from "../models/task";
-
-const _itemTemplate = document.createElement('template');
-_itemTemplate.innerHTML = `
-<style>
-:host{
-  display:block;
-  margin:7px;
-  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-}
-.button {
-  background-color: white;
-  color: black;
-  border: 1px none #555555;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  /* margin: 4px 2px; */
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  margin: 0px;
-  padding: 0px;
-}
-.button:hover {
-  //background-color: #555555;
-  color: red;
-}
-.chip {
-  display: inline-block;
-  background: #e0e0e0;
-  padding: 10px;
-  border-radius: 2px;
-  font-size: 13px;
-  }
-  .chip:hover {
-    background: #ccc;
-  }
-  .grid-container {
-    display: grid;
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
-    grid-template-columns: auto auto auto;
-  }
-
-  .header-grid {
-    display: grid;
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
-    grid-template-columns: auto auto;
-  }
-  header{
-    text-align:center;
-  }
-  header h3{
-    margin:0px;
-  }
-  .card{
-    padding:10px;
-  }
-</style>
-<div class="card">
-  <header class="header-grid">
-    <h3 class="chip grid-item">Priority</h3><a href="" style="margin-left:auto;" id="switchView">Fold</a>
-  </header>
-  <main>
-    <p>message</p>
-  </main>
-    <footer class="grid-container">
-    <div style="display:flex;justify-content: center;">
-    <button class="button grid-item" id="comments"><span>&#x1f4ac;</span></button>
-    <span></span>
-    </div>
-    <div style="display:flex;justify-content: center;">
-    <button class="button grid-item" id="attachments"><span>&#128206;</span></button>
-    <span></span>
-    </div>
-    <div style="display:flex;justify-content: center;">
-    <button style="border-radius:50%;padding:1px 7px 2px;border: 1px solid lightcoral;color: white;background:lightcoral" id="deleteTask" class="button grid-item"><span>&#x2715;</span></button>
-    </div>
-  </footer>
-</div>`;
-
-const _editTemplate = document.createElement('template');
-_editTemplate.innerHTML = `
-<style>
-:host{
-  display:block;
-  margin:7px;
-  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-}
-.button {
-  background-color: white;
-  color: black;
-  border: 2px solid lightgray;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  /* margin: 4px 2px; */
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  margin: 0px;
-  padding: 5px;
-}
-.button:hover {
-  //background-color: #555555;
-  color: red;
-}
-textarea, select {
-  border: 5px solid white;
-  -webkit-box-shadow:
-    inset 0 0 8px  rgba(0,0,0,0.1),
-          0 0 16px rgba(0,0,0,0.1);
-  -moz-box-shadow:
-    inset 0 0 8px  rgba(0,0,0,0.1),
-          0 0 16px rgba(0,0,0,0.1);
-  box-shadow:
-    inset 0 0 8px  rgba(0,0,0,0.1),
-          0 0 16px rgba(0,0,0,0.1);
-  padding: 15px;
-  background: rgba(255,255,255,0.5);
-  margin: 0 0 10px 0;
-}
-
-textarea{
-  width:-webkit-fill-available;
-}
-select{
-  padding:10px;
-}
-  .grid-container {
-    display: grid;
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
-    grid-template-columns: auto auto;
-  }
-
-  .full-width{
-    display:flex;
-    flex-direction:column;
-  }
-  .card{
-    padding:10px;
-  }
-</style>
-<div class="card">
-  <header class="grid-container">
-      <select id="ptyInput">
-        <option>High Priority</option>
-        <option>Medium Priority</option>
-        <option selected>Low Priority</option>
-      </select>
-      <a href="" style="margin-left:auto;" id="switchView">Fold</a>
-  </header>
-  <main>
-    <textarea id="msgInput" placeholder="Enter Task Details"></textarea>
-  </main>
-    <footer class="grid-container">
-    <div class="full-width">
-        <button id="submitTask" class="button grid-item">Add</button>
-    </div>
-    <div class="full-width">
-      <button id="cancel" class="button grid-item">Del</button>
-    </div>
-  </footer>
-</div>
-`
+import { ItemTemplate } from './task-item.template';
+import { EditTemplate } from './edit-item.template';
 
 export class TaskItem extends HTMLElement {
   root: ShadowRoot;
@@ -239,7 +70,7 @@ export class TaskItem extends HTMLElement {
       attachments: ['abc', 'def']
     }
     this.root = this.attachShadow({ mode: 'open' });
-    this.root.appendChild(_itemTemplate.content.cloneNode(true));
+    this.root.appendChild(ItemTemplate.content.cloneNode(true));
   }
 
   connectedCallback() {
@@ -279,7 +110,7 @@ export class TaskItem extends HTMLElement {
     switch (type) {
       case 'edit':
         this.removeAllViewsFromRoot();
-        this.root.appendChild(_editTemplate.content.cloneNode(true));
+        this.root.appendChild(EditTemplate.content.cloneNode(true));
         (<HTMLTextAreaElement>this.root.querySelector('#msgInput')).value = this.message;
         (<HTMLTextAreaElement>this.root.querySelector('#ptyInput')).value = this.priority;
         this.removeAttribute('draggable');
@@ -300,7 +131,7 @@ export class TaskItem extends HTMLElement {
           break;
         }
         this.removeAllViewsFromRoot();
-        this.root.appendChild(_itemTemplate.content.cloneNode(true));
+        this.root.appendChild(ItemTemplate.content.cloneNode(true));
         this.draggable = true;
         this.message = msg;
         this.priority = pty;
@@ -406,7 +237,7 @@ export class TaskItem extends HTMLElement {
    */
 
   showError(errMsg: string) {
-    const errToast = document.createElement('error-toast');
+    const errToast = document.createElement('tusky-toast');
     errToast.setAttribute('message', errMsg);
     this.root.appendChild(errToast);
   }

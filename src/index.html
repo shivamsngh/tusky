@@ -18,7 +18,7 @@
       height: 100%;
       width: 100%;
       margin: auto;
-      font:400 12px system-ui;
+      font-family: 'Coves';
     }
 
     .button {
@@ -68,14 +68,15 @@
 
     .app-head {
       grid-template-columns: auto auto;
-      width:100%;
+      width: 100%;
     }
 
     @media only screen and (max-width: 600px) {
       .grid-container {
         grid-template-columns: auto;
       }
-      .container{
+
+      .container {
         justify-content: space-around;
       }
     }
@@ -116,32 +117,33 @@
     <nav-bar></nav-bar>
     <main>
       <div class="container">
-          <div class="grid-container app-head">
-              <div class=" flex-wrapper">
-                <h1 style="margin-inline-start: 10px;">Tusky Task Board</h1>
-              </div>
-              <div class="flex-wrapper align-right">
-                <a href="" id="addTask" style="background: lightgrey"><img src="https://cdn3.iconfinder.com/data/icons/e-commerce-simple-ui-elements/100/TWalsh__plus1-512.png"
-                    alt="add" class="avatar" />
-                </a>
-                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-              </div>
-      
-            </div>
+        <div class="grid-container app-head">
+          <div class=" flex-wrapper">
+            <h1 style="margin-inline-start: 10px;">Tusky Board</h1>
+          </div>
+          <div class="flex-wrapper align-right">
+            <a href="" id="addTask" style="background: lightgrey"><img
+                src="https://cdn3.iconfinder.com/data/icons/e-commerce-simple-ui-elements/100/TWalsh__plus1-512.png"
+                alt="add" class="avatar" />
+            </a>
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+          </div>
+
+        </div>
       </div>
-     
+
       <div class="container main">
         <div class="grid-container" id="task-cards">
-          <task-card title="In Progress" id="inprogress">
-          </task-card>
-          <task-card title="On Hold" id="onhold">
-          </task-card>
-          <task-card title="Completed" id="completed">
-          </task-card>
-          <task-card title="Assigned" id="assigned">
-          </task-card>
+          <tusky-task-card title="In Progress" id="inprogress">
+          </tusky-task-card>
+          <tusky-task-card title="On Hold" id="onhold">
+          </tusky-task-card>
+          <tusky-task-card title="Completed" id="completed">
+          </tusky-task-card>
+          <tusky-task-card title="Assigned" id="assigned">
+          </tusky-task-card>
         </div>
       </div>
     </main>

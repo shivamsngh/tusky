@@ -59,6 +59,10 @@ var config = {
       { test: /\.html$/, loader: 'html-loader' },
 
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
+        use: ['file-loader']
+      }
 
     ].filter(Boolean)
   },
