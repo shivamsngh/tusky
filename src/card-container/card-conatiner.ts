@@ -1,7 +1,7 @@
 import { Task } from "../models/task";
-import { TaskCardTemplate } from './task-card.template';
+import { CardContainerTemplate } from './card-container.template';
 
-export class TaskCard extends HTMLElement {
+export class CardContainer extends HTMLElement {
   root: ShadowRoot;
   taskHeader: string;
   taskList: Task[] = [];
@@ -28,7 +28,7 @@ export class TaskCard extends HTMLElement {
     super();
     console.log("task initializing");
     this.root = this.attachShadow({ mode: 'open' });
-    this.root.appendChild(TaskCardTemplate.content.cloneNode(true));
+    this.root.appendChild(CardContainerTemplate.content.cloneNode(true));
     console.log(this.root);
     this.root.querySelector('#addTask')
       .addEventListener('click', (ev) => this.createTask());

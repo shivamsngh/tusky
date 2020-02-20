@@ -1,23 +1,19 @@
-export const TaskCardTemplate = document.createElement('template');
-TaskCardTemplate.innerHTML = `
+export const CardContainerTemplate = document.createElement('template');
+CardContainerTemplate.innerHTML = `
 <style>
 .card {
-    display: inline-block;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
-    margin: 20px;
-    position: relative;
-    margin-bottom: 50px;
-    transition: all .2s ease-in-out;
-    max-width:300px;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 10px;
   }
   .card-footer{
       text-align:center;
       margin:5px;
   }
   .card:hover {
-    /*box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);*/
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    // margin-bottom: 54px;
   }
   .centered {
     position: absolute;
@@ -83,41 +79,16 @@ TaskCardTemplate.innerHTML = `
     background-color: #555555;
     color: white;
   }
-
-.fab {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  position: absolute;
-  margin-top: -50px;
-  right: 20px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
-  color: #fff;
-  font-size: 48px;
-  text-align: center;
-  background: #0066A2;
-  -webkit-transition: -webkit-transform .2s ease-in-out;
-  transition: transform .2s ease-in-out;
-}
-
-.fab:hover {
-  background: #549D3C;
-  cursor: pointer;
-  -ms-transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
-	transform: rotate(90deg);
-}
 </style>
 
 <div class="card">
 
 <header>
-<div class="image">
-  <img src="https://cdn.dribbble.com/users/1046434/screenshots/2817598/attachments/577913/opensource-background1-big.jpg">
-  <div class="centered">
-  <h1 id="card-title"></h1>
-    <p id="card-count"></p>
-  </div>
+  <div class="image">
+    <div class="centered">
+      <h1 id="card-title"></h1>
+      <p id="card-count"></p>
+   </div>
   </div>
 </header>
 
